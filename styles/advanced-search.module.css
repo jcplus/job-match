@@ -1,23 +1,53 @@
-.advancedSearchPageTitle {
+.pageTitle {
 	font-size: 2.5em;
 	margin-bottom: 1em;
 }
 
-.advancedSearchFilterHeading {
+.filterHeading {
 	margin-bottom: .5em;
 }
 
-.occupationFilters {
+.filters {
 	gap: 1em;
 }
 
-.occupationFilter {
-	background-color: var(--blue-gray-100);
+.filter {
+	background-color: var(--blue-gray-200);
+	flex-grow: 1;
+	transition: background-color .2s, color .2s;
 }
 
-.occupationFilterLabel {
+.filter._selected {
+	background-color: var(--blue-gray-800);
+	color: white;
+}
+
+.filterLabel {
 	font-size: 1em;
 	margin-left: .5em;
+}
+
+.actions {
+	gap: 1em;
+}
+
+.action {
+	appearance: none;
+	border: none;
+	cursor: pointer;
+	font-weight: bold;
+	padding: 1em 4em;
+	transition: background-color .2s, color .2s;
+}
+
+.clearAction {
+	background-color: var(--gray-100);
+	color: var(--gray-500);
+}
+
+.submitAction {
+	background-color: var(--orange-a400);
+	color: var(--gray-200);
 }
 
 @media (min-width: 768px) {
@@ -26,7 +56,30 @@
 		padding-bottom: 50px;
 	}
 
-	.occupationFilter {
-		padding: 10px;
+	.filterWrapper:not(:last-child) {
+		margin-bottom: 40px;
+	}
+
+	.filter {
+		min-width: calc(100% / 5);
+		padding: 10px 20px;
+	}
+
+	.filter:hover {
+		background-color: var(--blue-gray-100);
+	}
+
+	.filter._selected:hover {
+		color: var(--blue-gray-700);
+	}
+
+	.clearAction:hover {
+		background-color: var(--gray-300);
+		color: var(--gray-800);
+	}
+
+	.submitAction:hover {
+		background-color: var(--orange-900);
+		color: white;
 	}
 }
