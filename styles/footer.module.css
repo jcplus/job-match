@@ -1,0 +1,24 @@
+.footer {
+	background-color: var(--gray-900);
+	color: var(--gray-100);
+}
+
+.footerQuickLink {
+	font-size: .9em;
+}
+
+.footerCopyright {
+	font-size: .8em;
+}
+
+@media (min-width: 768px) {
+	.footer {
+		gap: 30px;
+		padding-top: 50px;
+		padding-bottom: 50px;
+	}
+
+	.footerQuickLinks {
+		gap: 20px;
+	}
+}

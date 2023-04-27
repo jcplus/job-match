@@ -1,0 +1,32 @@
+.advancedSearchPageTitle {
+	font-size: 2.5em;
+	margin-bottom: 1em;
+}
+
+.advancedSearchFilterHeading {
+	margin-bottom: .5em;
+}
+
+.occupationFilters {
+	gap: 1em;
+}
+
+.occupationFilter {
+	background-color: var(--blue-gray-100);
+}
+
+.occupationFilterLabel {
+	font-size: 1em;
+	margin-left: .5em;
+}
+
+@media (min-width: 768px) {
+	.advancedSearch {
+		padding-top: 50px;
+		padding-bottom: 50px;
+	}
+
+	.occupationFilter {
+		padding: 10px;
+	}
+}

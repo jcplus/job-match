@@ -1,0 +1,62 @@
+.header {
+	position: fixed;
+	background-color: white;
+	width: 100%;
+}
+
+.headerUserWrapper,
+.headerUserToggle {
+	position: relative;
+}
+
+.headerUserWrapper {
+	appearance: none;
+	background-color: transparent;
+	border: none;
+	padding: 0;
+}
+
+.headerUserToggle {
+}
+
+.headerUserToggle:after {
+	position: absolute;
+	background-color: var(--gray-400);
+	content: "";
+	display: block;
+	height: 100%;
+	width: 1px;
+}
+
+.headerUserDropdown {
+	position: absolute;
+	display: none;
+}
+
+@media (min-width: 768px) {
+	.header {
+		height: 60px;
+	}
+
+	.headerLogo {
+		width: 30px;
+	}
+
+	.headerWrapper {
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+
+	.headerNav {
+		gap: 20px;
+	}
+
+	.headerUserToggle {
+		height: 60px;
+		width: 40px;
+	}
+
+	.headerUserToggle:after {
+		left: calc(100% + 5px);
+	}
+}
