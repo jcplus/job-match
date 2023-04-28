@@ -12,8 +12,9 @@ html, body {
 	width: 100%;
 }
 
+/* perspective will malfunction the fixed position of its direct children */
 body {
-	perspective: 100px;
+	/*perspective: 100px;*/
 }
 
 a, h1, h2, h3, h4, h5, h6, p {
