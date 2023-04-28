@@ -17,7 +17,8 @@ const Layout = ({ children, title }: Props) => {
 		<div className="u-flex u-flex-column layout">
 			<Head>
 				<title>{pageTitle}</title>
-				<body className="u-scrollbar" />
+				<meta charSet="utf-8"/>
+				<meta name="viewport" content="initial-scale=1.0, width=device-width"/>
 			</Head>
 			<Header />
 			<main className="u-flex-grow">{children}</main>
