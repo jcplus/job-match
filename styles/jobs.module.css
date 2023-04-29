@@ -1,3 +1,98 @@
 .jobItems {
+	gap: 2em;
+}
 
+.jobItem {
+	background-color: white;
+	gap: 1em;
+	padding: 2em;
+}
+
+.jobItemTitle {
+	color: var(--light-blue-800);
+	font-size: 1.5em;
+	transition: color .2s;
+}
+
+.jobItemHeading {
+	font-size: 1.2em;
+	font-weight: bold;
+	gap: 2em;
+	margin-bottom: .5em;
+}
+
+.jobItemPayRate {
+	color: var(--orange-800);
+	font-size: 1.2em;
+}
+
+.jobItemWorkType {
+	background-color: var(--cyan-800);
+	color: white;
+	font-size: .8em;
+	padding: .5em;
+}
+
+.jobItemTable {
+	gap: .5em;
+}
+
+.jobItemRowName,
+.jobItemRowValue {
+	padding: 20px;
+}
+
+.jobItemRow {
+	gap: .5em;
+}
+
+.jobItemRowName {
+	background-color: var(--orange-50);
+	color: var(--blue-gray-600);
+	flex-shrink: 0;
+	font-weight: bold;
+	width: 10em;
+}
+
+.jobItemRowValue {
+	background-color: var(--blue-gray-50);
+	flex-grow: 1;
+}
+
+.jobItemActions {
+	gap: 1em;
+}
+
+.jobItemAction {
+	color: white;
+	font-weight: bold;
+	padding: 1em 2em;
+	transition: background-color .2s;
+}
+
+.jobItemAction._details {
+	background-color: var(--blue-gray-800);
+}
+
+.jobItemAction._apply {
+	background-color: var(--orange-800);
+}
+
+@media (min-width: 768px) {
+	.jobsContainer {
+		padding-top: 50px;
+		padding-bottom: 50px;
+	}
+
+	.jobItemTitle:hover {
+		color: var(--light-blue-600);
+	}
+
+	.jobItemAction._details:hover {
+		background-color: var(--blue-gray-600);
+	}
+
+	.jobItemAction._apply:hover {
+		background-color: var(--orange-600);
+	}
 }

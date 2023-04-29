@@ -1,8 +1,20 @@
 import React, {createContext, useContext, useState} from 'react';
 
-interface Job {
-	id: string;
-	title: string;
+export interface Job {
+	id: number;
+	job_title: string;
+	work_schedule: string;
+	pay_rate: number;
+	pay_unit: string;
+	location: string;
+	work_type: string;
+	job_category: string[];
+	job_description: string;
+	required_skills: string[];
+	preferred_skills: string[];
+	contract_type: string;
+	contractor: string;
+	additional_info: string[];
 	// ... other properties
 }
 
@@ -30,3 +42,9 @@ export const useJobContext = () => {
 	}
 	return context;
 };
+
+
+
+
+
+
