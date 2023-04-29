@@ -1,3 +1,8 @@
+.jobsLoading {
+	background-color: white;
+	height: 100%;
+}
+
 .jobItems {
 	gap: 2em;
 }
@@ -78,6 +83,11 @@
 	background-color: var(--orange-800);
 }
 
+.jobItemAction._applied {
+	background-color: var(--orange-100);
+	color: var(--orange-800);
+}
+
 @media (min-width: 768px) {
 	.jobsContainer {
 		padding-top: 50px;
@@ -92,7 +102,7 @@
 		background-color: var(--blue-gray-600);
 	}
 
-	.jobItemAction._apply:hover {
+	.jobItemAction._apply:not(._applied):hover {
 		background-color: var(--orange-600);
 	}
 }

@@ -15,7 +15,7 @@ export interface Job {
 	contract_type: string;
 	contractor: string;
 	additional_info: string[];
-	// ... other properties
+	applied: boolean;
 }
 
 interface JobContextData {

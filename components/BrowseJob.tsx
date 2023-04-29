@@ -62,9 +62,8 @@ const BrowseJob: React.FC<BrowseJobProps> = ({ job }) => {
 				<a className={`u-cursor-link u-flex u-align-center u-justify-center ${styles.jobItemAction} ${styles._details}`}
 				   href={`/jobs/${job.id}`}
 				>More Details</a>
-				<a className={`u-cursor-link u-flex u-align-center u-justify-center ${styles.jobItemAction} ${styles._apply}`}
-				   href={`/jobs/${job.id}`}
-				>Apply</a>
+				<a className={`${!job.applied ? 'u-cursor-link' : styles._applied} u-flex u-align-center u-justify-center ${styles.jobItemAction} ${styles._apply}`}
+				>{job.applied ? 'Applied' : 'Apply'}</a>
 			</div>
 		</div>
 	);

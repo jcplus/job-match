@@ -1,4 +1,6 @@
 import React from 'react';
+
+import 'font-awesome/css/font-awesome.min.css';
 import styles from '../styles/pagination.module.css';
 
 interface PaginationProps {
@@ -21,13 +23,13 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
 	const renderPageNumbers = () => {
 		const pages = [];
 
-		if (totalPages <= 6) {
+		if (totalPages <= 7) {
 			for (let i = 1; i <= totalPages; i++) {
 				pages.push(i);
 			}
 		} else {
 			if (currentPage <= 4) {
-				for (let i = 1; i <= 3; i++) {
+				for (let i = 1; i <= currentPage + 1; i++) {
 					pages.push(i);
 				}
 				pages.push('...');
@@ -35,15 +37,15 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
 			} else if (currentPage >= totalPages - 3) {
 				pages.push(1);
 				pages.push('...');
-				for (let i = totalPages - 2; i <= totalPages; i++) {
+				for (let i = currentPage - 1; i <= totalPages; i++) {
 					pages.push(i);
 				}
 			} else {
 				pages.push(1);
 				pages.push('...');
-				pages.push(currentPage - 1);
-				pages.push(currentPage);
-				pages.push(currentPage + 1);
+				for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+					pages.push(i);
+				}
 				pages.push('...');
 				pages.push(totalPages);
 			}
@@ -52,7 +54,12 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
 		return pages.map((page, index) => (
 			<li
 				key={index}
-				className={page === currentPage ? 'active' : ''}
+				className={
+					`u-flex u-align-center u-justify-center 
+					${styles.paginationItem} 
+					${page === currentPage ? styles._active : ''} 
+					${page === '...' ? styles._spacer : ''}`
+				}
 				onClick={() => typeof page === 'number' && handlePageClick(page)}
 			>
 				{page}
@@ -61,16 +68,18 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
 	};
 
 	return (
-		<ul className={styles.pagination}>
+		<ul className={`u-flex u-align-stretch u-no-list-style ${styles.pagination}`}>
 			{showLeftArrow && (
-				<li onClick={() => handlePageClick(currentPage - 1)}>
-					<span>&laquo;</span>
+				<li className={`u-flex u-align-center u-justify-center u-cursor-link ${styles.paginationItem} ${styles.leftArrow}`}
+					onClick={() => handlePageClick(currentPage - 1)}>
+					<i className="fa fa-angle-left"></i>
 				</li>
 			)}
 			{renderPageNumbers()}
 			{showRightArrow && (
-				<li onClick={() => handlePageClick(currentPage + 1)}>
-					<span>&raquo;</span>
+				<li className={`u-flex u-align-center u-justify-center u-cursor-link ${styles.paginationItem} ${styles.rightArrow}`}
+					onClick={() => handlePageClick(currentPage + 1)}>
+					<i className="fa fa-angle-right"></i>
 				</li>
 			)}
 		</ul>

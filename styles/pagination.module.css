@@ -1,0 +1,23 @@
+.pagination {
+	gap: 1em;
+	padding-left: 0;
+}
+
+.paginationItem {
+	aspect-ratio: 1/1;
+	height: 2em;
+	min-width: 2em;
+}
+
+.paginationItem:not(._spacer):not(._active) {
+	background-color: white;
+	cursor: pointer;
+}
+
+.paginationItem._active {
+	background-color: var(--orange-800);
+	color: white;
+}
+
+.paginationItem._spacer {
+}
