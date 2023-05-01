@@ -76,6 +76,43 @@ const mockJobs = {
 	total_items: 995,
 };
 
+export const mockJobDetail: Job = {
+	id: 9267,
+	job_title: 'Backend Developer (Go/Ruby) for a Retail Sales Staff DX Service',
+	work_schedule: '11:00 - 18:00 (flexible)',
+	pay_rate: 900000,
+	pay_unit: 'month',
+	location: 'Remote (Nationwide)',
+	work_type: 'Full remote',
+	job_category: ['Server-side Engineer'],
+	job_description:
+		'Develop a smartphone application for our in-house retail sales staff DX service. We are currently transitioning from Ruby to Go for improved development efficiency and quality.',
+	required_skills: [
+		'5+ years of web application development experience using Go, Ruby, or similar languages',
+		'Interest in and experience with Go language',
+		'Experience with MySQL or PostgreSQL',
+		'Experience with Git or other source control tools',
+		'Experience in designing large-scale services considering load and scaling',
+	],
+	preferred_skills: [
+		'Experience with MVC frameworks (Ruby on Rails preferred)',
+		'Experience with AWS',
+		'Front-end development experience',
+		'Experience with React or Vue.js',
+		'Database design and tuning',
+		'Experience with open source projects and contributions',
+		'Experience with statically typed and functional languages',
+	],
+	contract_type: 'Contract (semi-consignment)',
+	contractor: 'LASSIC Co., Ltd.',
+	additional_info: [
+		'Work with a rapidly growing venture company with close communication during development',
+		'Fully remote work',
+		'Candidates available 5 days a week are welcome',
+	],
+	applied: false,
+};
+
 export async function getAllJobs(page: number = 1): Promise<{ data: Job[]; current_page: number; total_pages: number; total_items: number }> {
 	return new Promise((resolve) => {
 		setTimeout(() => {
@@ -85,11 +122,11 @@ export async function getAllJobs(page: number = 1): Promise<{ data: Job[]; curre
 	});
 }
 
-export async function getJobById(id: number) {
-	const job = mockJobs.data.find((job) => job.id === id);
-	if (job) {
-		return Promise.resolve(job);
-	} else {
-		return Promise.reject(new Error('Job not found'));
-	}
-}
+export const getJobById = async (id: number): Promise<Job> => {
+	// Here we are simulating an API call with a delay
+	await new Promise((resolve) => setTimeout(resolve, 1000));
+
+	// In this example, we always return the same job detail. In a real-world scenario,
+	// you would fetch the job detail from your API or database using the provided id.
+	return mockJobDetail;
+};

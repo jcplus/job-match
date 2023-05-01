@@ -88,6 +88,14 @@
 	color: var(--orange-800);
 }
 
+.jobDetailContainer {
+	gap: 1em;
+}
+
+.jobDetailContainer .jobItemRowValue {
+	background-color: white;
+}
+
 @media (min-width: 768px) {
 	.jobsContainer {
 		padding-top: 50px;

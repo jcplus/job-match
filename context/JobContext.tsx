@@ -42,9 +42,3 @@ export const useJobContext = () => {
 	}
 	return context;
 };
-
-
-
-
-
-
