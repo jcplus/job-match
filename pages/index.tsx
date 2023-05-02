@@ -3,7 +3,7 @@ import Layout from '../components/Layout';
 import {useOccupationContext} from '../context/OccupationContext';
 import {useTechStackContext} from '../context/TechStackContext';
 import {useWorkStyleContext} from '../context/WorkStyleContext';
-import styles from '../styles/advanced-search.module.css';
+import styles from '../styles/advancedSearch.module.css';
 import Link from 'next/link';
 
 const HomePage: React.FC = () => {

@@ -1,0 +1,44 @@
+.modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	background-color: white;
+	box-shadow: 0 .5em 1em rgba(0,0,0,.1);
+	transform: translate(-50%,-50%);
+}
+
+.modalWrapper {
+	gap: 1em;
+}
+
+.modalHead {
+	font-size: 1.5em;
+}
+
+.modalContent {
+	line-height: 1.5;
+}
+
+.modalAction {
+	padding: 1em 2em;
+}
+
+.modalAction._cancel {
+	background-color: var(--blue-gray-50);
+}
+
+.modalAction._submit {
+	background-color: var(--orange-800);
+	color: white;
+}
+
+@media (min-width: 768px) {
+	.modal {
+		max-width: 550px;
+	}
+
+	.modalWrapper {
+		padding: 2em;
+	}
+}
+

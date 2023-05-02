@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Link from 'next/link';
 import {Job} from '../context/JobContext';
 import {useUserContext} from '../context/UserContext';
@@ -10,27 +10,26 @@ interface BrowseJobProps {
 	job: Job;
 }
 
-interface BrowseJobProps {
-	job: Job;
-}
-
 const BrowseJob: React.FC<BrowseJobProps> = ({job}) => {
-	const { user } = useUserContext();
+	const modalAnimationDuration = 500;
+	const {user} = useUserContext();
 	const [showLoginOrSignUp, setShowLoginOrSignUp] = useState(false);
-	const [showApplyJob, setShowApplyJob] = useState(false);
+	const [isApplyJobVisible, setIsApplyJobVisible] = useState(false);
+	const [selectedJobId, setSelectedJobId] = useState<number | null>(null);
 
-	const handleApplyClick = () => {
-		if (user) {
-			setShowApplyJob(true);
-		} else {
-			setShowLoginOrSignUp(true);
-		}
+	const handleApplyClick = (jobId: number) => {
+		setSelectedJobId(jobId);
+		setIsApplyJobVisible(true);
 	};
 
 	return (
 		<>
-			{showLoginOrSignUp && <LoginOrSignUp />}
-			{showApplyJob && <ApplyJob />}
+			{showLoginOrSignUp && <LoginOrSignUp/>}
+			{isApplyJobVisible && <ApplyJob
+				isVisible={isApplyJobVisible}
+				jobId={selectedJobId}
+				setIsVisible={setIsApplyJobVisible}
+			/>}
 			<div className={`u-flex u-flex-column u-align-start ${styles.jobItem}`}>
 				<Link href={`/jobs/${job.id}`}>
 					<h2 className={`u-flex u-align-center ${styles.jobItemTitle}`}>
@@ -80,9 +79,8 @@ const BrowseJob: React.FC<BrowseJobProps> = ({job}) => {
 					<a className={`u-cursor-link u-flex u-align-center u-justify-center ${styles.jobItemAction} ${styles._details}`}
 					   href={`/jobs/${job.id}`}
 					>More Details</a>
-					<a
-						className={`u-cursor-link u-flex u-align-center u-justify-center ${styles.jobItemAction} ${styles._apply}`}
-						onClick={handleApplyClick}
+					<a className={`u-cursor-link u-flex u-align-center u-justify-center ${styles.jobItemAction} ${styles._apply}`}
+					   onClick={() => handleApplyClick(job.id)}
 					>Apply</a>
 				</div>
 			</div>
