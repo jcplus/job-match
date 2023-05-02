@@ -27,11 +27,6 @@
 	background-color: var(--blue-gray-50);
 }
 
-.modalAction._submit {
-	background-color: var(--orange-800);
-	color: white;
-}
-
 @media (min-width: 768px) {
 	.modal {
 		max-width: 550px;

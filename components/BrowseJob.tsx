@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import Link from 'next/link';
 import {Job} from '../context/JobContext';
 import {useUserContext} from '../context/UserContext';
-import LoginOrSignUp from './LoginOrSignUp';
-import ApplyJob from './ApplyJob';
+import LoginOrSignUp from './Modal/LoginOrSignUp';
+import ApplyJob from './Modal/ApplyJob';
 import styles from '../styles/jobs.module.css';
 
 interface BrowseJobProps {

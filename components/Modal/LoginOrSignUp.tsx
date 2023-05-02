@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../styles/loginOrSignUp.module.css';
+import styles from '../../styles/loginOrSignUp.module.css';
 
 const LoginOrSignUp: React.FC = () => {
 	const [isLogin, setIsLogin] = useState(true);
