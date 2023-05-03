@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import styles from '../../styles/loginOrSignUp.module.css';
 
-const LoginOrSignUp: React.FC = () => {
+interface LoginOrSignUpProps {
+	isVisible: boolean;
+	setIsVisible: (visible: boolean) => void;
+}
+
+const LoginOrSignUp: React.FC<LoginOrSignUpProps> = ({ isVisible, setIsVisible }) => {
 	const [isLogin, setIsLogin] = useState(true);
 
 	const switchForm = () => {

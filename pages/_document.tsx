@@ -8,6 +8,7 @@ export default class MyDocument extends Document {
 					<link rel="stylesheet" href="/css/colours.css"/>
 					<link rel="stylesheet" href="/css/ub.css"/>
 					<link rel="stylesheet" href="/css/base.css"/>
+					<link rel="stylesheet" href="/css/modal.css"/>
 				</Head>
 				<body className="u-scrollbar">
 				<Main/>

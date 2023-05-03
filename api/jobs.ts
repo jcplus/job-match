@@ -130,3 +130,22 @@ export const getJobById = async (id: number): Promise<Job> => {
 	// you would fetch the job detail from your API or database using the provided id.
 	return mockJobDetail;
 };
+
+export async function applyJob(userId: number, jobId: number): Promise<{ success: boolean; message: string }> {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			const random = Math.random();
+			if (random >= 0.5) {
+				resolve({
+					success: true,
+					message: 'You have successfully applied for this job.',
+				});
+			} else {
+				resolve({
+					success: false,
+					message: 'There was an issue applying for this job. Please try again.',
+				});
+			}
+		}, 1000);
+	});
+}

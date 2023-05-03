@@ -1,16 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { JobProvider, Job } from '../../context/JobContext';
-import { getJobById } from '../../api/jobs';
+import React, {useState, useEffect} from 'react';
+import {useRouter} from 'next/router';
+import {JobProvider, Job} from '../../context/JobContext';
+import {useUserContext} from '../../context/UserContext';
+import {getJobById} from '../../api/jobs';
+import ApplyJob from '../../components/Modal/ApplyJob';
 import Layout from '../../components/Layout';
 import LoadingCircle from '../../components/LoadingCircle';
+import LoginOrSignUp from '../../components/Modal/LoginOrSignUp';
+
+import {useSelector} from 'react-redux';
+import {RootState} from '../../redux/store';
+
 import styles from '../../styles/jobs.module.css';
 
 const JobDetailPage: React.FC = () => {
 	const router = useRouter();
-	const { id } = router.query;
+	const {id} = router.query;
+	const {user} = useUserContext();
 	const [job, setJob] = useState<Job | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
+	const [applyJobVisible, setApplyJobVisible] = useState(false);
+
+	const jobsPage = useSelector((state: RootState) => state.jobs.jobsPage);
+	const backButtonLink = jobsPage && jobsPage > 1 ? `/jobs?page=${jobsPage}` : '/jobs';
 
 	useEffect(() => {
 		if (id) {
@@ -25,9 +37,18 @@ const JobDetailPage: React.FC = () => {
 				});
 		}
 	}, [id]);
+	useEffect(() => {
+		console.log("JobsPage in [id].tsx:", jobsPage);
+	}, [jobsPage]);
+
+	const handleApplySuccess = (jobId: number) => {
+		if (job.id === jobId) {
+			setJob({...job, applied: true});
+		}
+	};
 
 	if (isLoading) {
-		return <LoadingCircle />;
+		return <LoadingCircle/>;
 	}
 
 	if (!job) {
@@ -37,7 +58,8 @@ const JobDetailPage: React.FC = () => {
 	return (
 		<JobProvider>
 			<Layout title="Job Details">
-				<div className={`u-flex u-flex-column u-container ${styles.jobsContainer} ${styles.jobDetailContainer}`}>
+				<div
+					className={`u-flex u-flex-column u-container ${styles.jobsContainer} ${styles.jobDetailContainer}`}>
 					<h1 className={styles.jobDetailHeading}>
 						<span>{job.job_title}</span>
 					</h1>
@@ -80,10 +102,34 @@ const JobDetailPage: React.FC = () => {
 							<div className={styles.jobItemRowValue}>{job.additional_info}</div>
 						</div>
 					</div>
-					<div className={`u-full-width u-flex u-align-stretch u-justify-center ${styles.jobItemActions}`}>
-						<a className={`${!job.applied ? 'u-cursor-link' : styles._applied} u-flex u-align-center u-justify-center ${styles.jobItemAction} ${styles._apply}`}
-						>{job.applied ? 'Applied' : 'Apply'}</a>
+					<div
+						className={`u-full-width u-flex u-align-stretch u-justify-between ${styles.jobItemActions}`}
+					>
+						<a
+							className={`${!job.applied ? 'u-cursor-link' : styles._applied} u-flex u-align-center u-justify-center ${styles.jobItemAction} ${styles._details}`}
+							href={backButtonLink}
+						>Back</a>
+						<a
+							className={`${!job.applied ? 'u-cursor-link' : styles._applied} u-flex u-align-center u-justify-center ${styles.jobItemAction} ${styles._apply}`}
+							onClick={() => {
+								if (!job.applied) {
+									setApplyJobVisible(true);
+								}
+							}}
+						>
+							{job.applied ? 'Applied' : 'Apply'}
+						</a>
 					</div>
+					{user ? (
+						<ApplyJob
+							isVisible={applyJobVisible}
+							jobId={job.id}
+							setIsVisible={setApplyJobVisible}
+							onApplySuccess={handleApplySuccess}
+						/>
+					) : (
+						<LoginOrSignUp isVisible={applyJobVisible} setIsVisible={setApplyJobVisible}/>
+					)}
 				</div>
 			</Layout>
 		</JobProvider>

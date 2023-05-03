@@ -1,14 +1,28 @@
 .modal {
 	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 500;
+}
+
+.modalWrapper {
+	position: relative;
+	backdrop-filter: blur(.5em);
+	background-color: rgba(255,255,255,.5);
+	height: 100%;
+	width: 100%;
+}
+
+.modalContainer {
+	position: absolute;
 	top: 50%;
 	left: 50%;
 	background-color: white;
 	box-shadow: 0 .5em 1em rgba(0,0,0,.1);
-	transform: translate(-50%,-50%);
-}
-
-.modalWrapper {
 	gap: 1em;
+	transform: translate(-50%,-50%);
 }
 
 .modalHead {
@@ -27,12 +41,14 @@
 	background-color: var(--blue-gray-50);
 }
 
-@media (min-width: 768px) {
-	.modal {
-		max-width: 550px;
-	}
+.modalAction._submit {
+	background-color: var(--orange-800);
+	color: white;
+}
 
-	.modalWrapper {
+@media (min-width: 768px) {
+	.modalContainer {
+		max-width: 550px;
 		padding: 2em;
 	}
 }

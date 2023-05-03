@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Link from 'next/link';
 import {Job} from '../context/JobContext';
+import {useJobContext} from '../context/JobContext';
 import {useUserContext} from '../context/UserContext';
 import LoginOrSignUp from './Modal/LoginOrSignUp';
 import ApplyJob from './Modal/ApplyJob';
@@ -13,6 +14,7 @@ interface BrowseJobProps {
 const BrowseJob: React.FC<BrowseJobProps> = ({job}) => {
 	const modalAnimationDuration = 500;
 	const {user} = useUserContext();
+	const {jobs, setJobs} = useJobContext();
 	const [showLoginOrSignUp, setShowLoginOrSignUp] = useState(false);
 	const [isApplyJobVisible, setIsApplyJobVisible] = useState(false);
 	const [selectedJobId, setSelectedJobId] = useState<number | null>(null);
@@ -22,13 +24,28 @@ const BrowseJob: React.FC<BrowseJobProps> = ({job}) => {
 		setIsApplyJobVisible(true);
 	};
 
+	const handleApplySuccess = (jobId: number) => {
+		const updatedJobs = jobs.map((job) => {
+			if (job.id === jobId) {
+				return {...job, applied: true};
+			}
+			return job;
+		});
+
+		setJobs(updatedJobs);
+	};
+
 	return (
 		<>
-			{showLoginOrSignUp && <LoginOrSignUp/>}
+			{showLoginOrSignUp && <LoginOrSignUp
+				isVisible={showLoginOrSignUp}
+				setIsVisible={setShowLoginOrSignUp}
+			/>}
 			{isApplyJobVisible && <ApplyJob
 				isVisible={isApplyJobVisible}
 				jobId={selectedJobId}
 				setIsVisible={setIsApplyJobVisible}
+				onApplySuccess={handleApplySuccess}
 			/>}
 			<div className={`u-flex u-flex-column u-align-start ${styles.jobItem}`}>
 				<Link href={`/jobs/${job.id}`}>
@@ -79,9 +96,15 @@ const BrowseJob: React.FC<BrowseJobProps> = ({job}) => {
 					<a className={`u-cursor-link u-flex u-align-center u-justify-center ${styles.jobItemAction} ${styles._details}`}
 					   href={`/jobs/${job.id}`}
 					>More Details</a>
-					<a className={`u-cursor-link u-flex u-align-center u-justify-center ${styles.jobItemAction} ${styles._apply}`}
-					   onClick={() => handleApplyClick(job.id)}
-					>Apply</a>
+					{
+						job.applied ? (
+							<a className={`u-flex u-align-center u-justify-center ${styles.jobItemAction} ${styles._applied}`}>Applied</a>
+						) : (
+							<a className={`u-cursor-link u-flex u-align-center u-justify-center ${styles.jobItemAction} ${styles._apply}`}
+							   onClick={() => handleApplyClick(job.id)}
+							>Apply</a>
+						)
+					}
 				</div>
 			</div>
 		</>
