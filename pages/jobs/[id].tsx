@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {JobProvider, Job} from '../../context/JobContext';
 import {useUserContext} from '../../context/UserContext';
@@ -22,7 +23,6 @@ const JobDetailPage: React.FC = () => {
 	const [applyJobVisible, setApplyJobVisible] = useState(false);
 
 	const jobsPage = useSelector((state: RootState) => state.jobs.jobsPage);
-	const backButtonLink = jobsPage && jobsPage > 1 ? `/jobs?page=${jobsPage}` : '/jobs';
 
 	useEffect(() => {
 		if (id) {
@@ -105,10 +105,10 @@ const JobDetailPage: React.FC = () => {
 					<div
 						className={`u-full-width u-flex u-align-stretch u-justify-between ${styles.jobItemActions}`}
 					>
-						<a
+						<Link
+							href={jobsPage && jobsPage > 1 ? `/jobs?page=${jobsPage}` : '/jobs'}
 							className={`${!job.applied ? 'u-cursor-link' : styles._applied} u-flex u-align-center u-justify-center ${styles.jobItemAction} ${styles._details}`}
-							href={backButtonLink}
-						>Back</a>
+						>Back</Link>
 						<a
 							className={`${!job.applied ? 'u-cursor-link' : styles._applied} u-flex u-align-center u-justify-center ${styles.jobItemAction} ${styles._apply}`}
 							onClick={() => {
