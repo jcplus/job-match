@@ -22,18 +22,10 @@ const HomePage: React.FC = () => {
 		const fetchData = async () => {
 			const data = await fetchFilters();
 			dispatch(setFilters(data));
-
-			// first log
-			console.log(1, data)
 		};
 
 		void fetchData();
 	}, [dispatch]);
-
-	useEffect(() => {
-		// second log
-		console.log(2, occupations);
-	}, [occupations]);
 
 	const handleOccupationClick = (index: number) => {
 		dispatch(toggleOccupation(index));
@@ -131,10 +123,10 @@ const HomePage: React.FC = () => {
 							onClick={handleClearSelections}
 						>Clear
 						</button>
-						<a href="/jobs"
-						   className={`u-flex u-align-center u-justify-center ${styles.action} ${styles.submitAction}`}>
-							Search
-						</a>
+						<Link
+							href="jobs"
+							className={`u-flex u-align-center u-justify-center ${styles.action} ${styles.submitAction}`}
+						>Search</Link>
 					</div>
 				</div>
 			</div>

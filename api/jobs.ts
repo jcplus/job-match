@@ -1,4 +1,4 @@
-import {Job} from '../context/JobContext';
+import {Job} from '../interfaces/job';
 
 const mockJobs = {
 	data: [

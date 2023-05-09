@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
 import Link from 'next/link';
+import {useSelector, useDispatch} from 'react-redux';
+import {RootState} from '../redux/store';
+import {updateJob} from '../redux/actions/jobs';
 import LoginOrSignUp from './Modal/LoginOrSignUp';
 import ApplyJob from './Modal/ApplyJob';
 import styles from '../styles/jobs.module.css';
@@ -10,8 +13,9 @@ interface BrowseJobProps {
 
 const BrowseJob: React.FC<BrowseJobProps> = ({job}) => {
 	const modalAnimationDuration = 500;
-	const {user} = useUserContext();
-	const {jobs, setJobs} = useJobContext();
+	const user = useSelector((state: RootState) => state.user);
+	const jobs = useSelector((state: RootState) => state.jobs);
+	const dispatch = useDispatch();
 	const [showLoginOrSignUp, setShowLoginOrSignUp] = useState(false);
 	const [isApplyJobVisible, setIsApplyJobVisible] = useState(false);
 	const [selectedJobId, setSelectedJobId] = useState<number | null>(null);
@@ -22,14 +26,10 @@ const BrowseJob: React.FC<BrowseJobProps> = ({job}) => {
 	};
 
 	const handleApplySuccess = (jobId: number) => {
-		const updatedJobs = jobs.map((job) => {
-			if (job.id === jobId) {
-				return {...job, applied: true};
-			}
-			return job;
-		});
-
-		setJobs(updatedJobs);
+		const updatedJob = jobs.find((j) => j.id === jobId);
+		if (updatedJob) {
+			dispatch(updateJob({...updatedJob, applied: true}));
+		}
 	};
 
 	return (

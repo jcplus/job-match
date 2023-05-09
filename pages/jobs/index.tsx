@@ -1,25 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
-import {getAllJobs} from '../../api/jobs';
-import BrowseJob from '../../components/BrowseJob';
-import Layout from '../../components/Layout';
-import LoadingCircle from '../../components/LoadingCircle';
-import Pagination from '../../components/Pagination';
-import {JobProvider, useJobContext} from '../../context/JobContext';
-import {UserProvider} from '../../context/UserContext';
-
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {RootState} from '../../redux/store';
-import {setJobsPage} from '../../redux/actions/jobs';
+import Layout from '../../components/Layout';
+import BrowseJob from '../../components/BrowseJob';
+import Pagination from '../../components/Pagination';
+import LoadingCircle from '../../components/LoadingCircle';
 
 import styles from '../../styles/jobs.module.css';
 
+import {setJobsPage} from '../../redux/reducers/jobs';
+import {getAllJobs} from '../../api/jobs';
+
 const JobsPage: React.FC = () => {
-	const dispatch = useDispatch();
 	const router = useRouter();
+	const dispatch = useDispatch();
 	const jobsPage = useSelector((state: RootState) => state.jobs.jobsPage);
 
-	const {jobs, setJobs} = useJobContext();
+	const [jobs, setJobs] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
 	const [totalItems, setTotalItems] = useState(0);
@@ -48,10 +46,6 @@ const JobsPage: React.FC = () => {
 
 		void fetchData();
 	}, [router.query]);
-
-	useEffect(() => {
-		console.log("JobsPage in jobs/index.tsx:", jobsPage);
-	}, [jobsPage]);
 
 	const handlePageChange = async (page: number) => {
 		setLoading(true);
@@ -96,12 +90,4 @@ const JobsPage: React.FC = () => {
 	);
 };
 
-const JobsPageWithProvider: React.FC = () => (
-	<JobProvider>
-		<UserProvider>
-			<JobsPage/>
-		</UserProvider>
-	</JobProvider>
-);
-
-export default JobsPageWithProvider;
+export default JobsPage;

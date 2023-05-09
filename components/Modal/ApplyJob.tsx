@@ -1,22 +1,25 @@
 import React, {useState} from 'react';
-import {useUserContext} from '../../context/UserContext';
+import {useSelector} from 'react-redux';
 import Modal from '../Modal';
 import LoadingCircle from '../LoadingCircle';
 import {applyJob} from '../../api/jobs';
-import styles from '../../styles/applyJob.module.css';
+import {RootState} from '../../redux/store';
 
 interface ApplyJobProps {
 	isVisible: boolean;
 	jobId: number | null;
 	setIsVisible: (visible: boolean) => void;
-	onApplySuccess?: (jobId: number) => void;
+	onApplySuccess: (jobId: number) => void;
 }
 
-const ApplyJob: React.FC<ApplyJobProps> = ({isVisible, jobId, setIsVisible, onApplySuccess}) => {
-	const {user} = useUserContext();
-	const [submitting, setSubmitting] = useState(false);
-	const [message, setMessage] = useState(null);
-	const [success, setSuccess] = useState(false);
+const ApplyJob: React.FC<ApplyJobProps> = ({
+											   isVisible,
+											   jobId,
+											   setIsVisible,
+											   onApplySuccess,
+										   }) => {
+	const user = useSelector((state: RootState) => state.user);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleSubmission = async () => {
 		if (!user) return;
