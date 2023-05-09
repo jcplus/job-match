@@ -1,38 +1,70 @@
-import React, {useState} from 'react';
-import Layout from '../components/Layout';
-import {useOccupationContext} from '../context/OccupationContext';
-import {useTechStackContext} from '../context/TechStackContext';
-import {useWorkStyleContext} from '../context/WorkStyleContext';
-import styles from '../styles/advancedSearch.module.css';
+import React, {useEffect} from 'react';
 import Link from 'next/link';
+import Layout from '../components/Layout';
+
+import {toggleOccupation, toggleTechStack, toggleWorkStyle} from '../redux/actions/filters';
+
+import {useSelector, useDispatch} from 'react-redux';
+import {RootState, AppDispatch} from '../redux/store';
+import {setFilters} from '../redux/actions/filters';
+import {fetchFilters} from '../api/filters';
+
+import styles from '../styles/advancedSearch.module.css';
 
 const HomePage: React.FC = () => {
-	const {occupations, setOccupations} = useOccupationContext();
-	const {techStacks, setTechStacks} = useTechStackContext();
-	const {workStyles, setWorkStyles} = useWorkStyleContext();
+	const dispatch: AppDispatch = useDispatch();
+
+	const occupations = useSelector((state: RootState) => state.filters.occupations);
+	const techStacks = useSelector((state: RootState) => state.filters.techStacks);
+	const workStyles = useSelector((state: RootState) => state.filters.workStyles);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const data = await fetchFilters();
+			dispatch(setFilters(data));
+
+			// first log
+			console.log(1, data)
+		};
+
+		void fetchData();
+	}, [dispatch]);
+
+	useEffect(() => {
+		// second log
+		console.log(2, occupations);
+	}, [occupations]);
 
 	const handleOccupationClick = (index: number) => {
-		const newOccupations = [...occupations];
-		newOccupations[index].selected = !newOccupations[index].selected;
-		setOccupations(newOccupations);
+		dispatch(toggleOccupation(index));
 	};
 
 	const handleTechStackClick = (index: number) => {
-		const newTechStacks = [...techStacks];
-		newTechStacks[index].selected = !newTechStacks[index].selected;
-		setTechStacks(newTechStacks);
+		dispatch(toggleTechStack(index));
 	};
 
 	const handleWorkStyleClick = (index: number) => {
-		const newWorkStyles = [...workStyles];
-		newWorkStyles[index].selected = !newWorkStyles[index].selected;
-		setWorkStyles(newWorkStyles);
+		dispatch(toggleWorkStyle(index));
 	};
 
 	const handleClearSelections = () => {
-		setOccupations(occupations.map(occupation => ({...occupation, selected: false})));
-		setTechStacks(techStacks.map(techStack => ({...techStack, selected: false})));
-		setWorkStyles(workStyles.map(workStyle => ({...workStyle, selected: false})));
+		occupations.forEach((occupation, index) => {
+			if (occupation.selected) {
+				dispatch(toggleOccupation(index)); // 使用 dispatch
+			}
+		});
+
+		techStacks.forEach((techStack, index) => {
+			if (techStack.selected) {
+				dispatch(toggleTechStack(index)); // 使用 dispatch
+			}
+		});
+
+		workStyles.forEach((workStyle, index) => {
+			if (workStyle.selected) {
+				dispatch(toggleWorkStyle(index)); // 使用 dispatch
+			}
+		});
 	};
 
 	return (
@@ -94,10 +126,13 @@ const HomePage: React.FC = () => {
 						</div>
 					</div>
 					<div className={`u-flex u-align-center u-justify-end ${styles.actions}`}>
-						<button className={`u-flex u-align-center u-justify-center ${styles.action} ${styles.clearAction}`}
-								onClick={handleClearSelections}
-						>Clear</button>
-						<a href="/jobs" className={`u-flex u-align-center u-justify-center ${styles.action} ${styles.submitAction}`}>
+						<button
+							className={`u-flex u-align-center u-justify-center ${styles.action} ${styles.clearAction}`}
+							onClick={handleClearSelections}
+						>Clear
+						</button>
+						<a href="/jobs"
+						   className={`u-flex u-align-center u-justify-center ${styles.action} ${styles.submitAction}`}>
 							Search
 						</a>
 					</div>
